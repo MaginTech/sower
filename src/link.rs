@@ -3,6 +3,8 @@
 
 // use ndarray::prelude::*;
 
+use crate::math::*;
+
 extern crate nalgebra as na;
 
 #[derive(Clone, PartialEq)]
@@ -142,16 +144,24 @@ impl Link{
         let parent = &self.parent;
          if let Some(p) = parent { 
             match self.joint_type(){
-                JointType::Fix => println!("to be implement"),
-                JointType::Free => println!("to be implement"),
+                JointType::Fix => 
+                {
+                    println!("to be implement");
+                },
+                JointType::Free =>
+                {
+                    println!("to be implement");
+                },
                 JointType::Revolute => 
                 {
                     self.position = p.position + p.arm_vec;
-                    // let rot = arm_rot * rot_mat(joit.position);
-                    let rot = na::Matrix3::<f64>::identity();
+                    let rot = rot_mat(na::Vector3::z(), self.joint.position[0]);
                     self.rotation = rot * p.arm_rot *  p.rotation;
                 },
-                JointType::Prismatic => println!("to be implement"),
+                JointType::Prismatic => 
+                {
+                    println!("to be implement");
+                },
             }
         }
     }
@@ -172,12 +182,17 @@ fn test_update_link_frame() {
     let parent = Link { 
         name : "0".to_string(),
         id : 0,
-        position: na::Vector3::new(0., 1., 0.),
+        arm_vec: na::Vector3::new(1., 0., 2.),
+        arm_rot: na::Matrix3::new
+        (2_f64.sqrt()/2., -2_f64.sqrt()/2., 0.,
+         2_f64.sqrt()/2.,  2_f64.sqrt()/2., 0.,
+         0., 0., 1.),
+        position: na::Vector3::new(0., 1., 0.5),
         ..Default::default() 
     };
 
     let mut joint = Joint {
-        position : na::DVector::from_element(1, 1.5),
+        position : na::DVector::from_element(1, std::f64::consts::PI / 4.),
         ..Default::default()
     };
 
@@ -190,9 +205,14 @@ fn test_update_link_frame() {
         ..Default::default()
     };
 
-    // if let Some(p) = link.parent { 
-    //     assert_eq!(na::Vector3::new(0., 1., 0.), p.position());
-    // }
+    link.update_link_framemut();
 
-    assert_eq!(na::Vector3::new(0., 0., 0.), link.position);
+    assert_eq!(na::Vector3::new(1., 1., 2.5), link.position);
+
+    let mat = na::Matrix3::new
+        (0., -1., 0.,
+         1.,  0., 0.,
+         0.,  0., 1.);
+    let abs_difference = (mat - link.rotation).abs();
+    assert!(abs_difference.norm() < 1e-10);
 }
