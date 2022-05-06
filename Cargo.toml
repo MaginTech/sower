@@ -6,3 +6,4 @@ edition = "2021"
 [dependencies]
 ndarray = { version = "0.15.0" }
 ndarray-linalg = { version = "0.14", features = ["openblas-static"] }
+nalgebra = "*"
