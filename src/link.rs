@@ -3,9 +3,9 @@
 
 // use ndarray::prelude::*;
 
-use crate::math::*;
-
 extern crate nalgebra as na;
+
+use crate::math::*;
 
 #[derive(Clone, PartialEq)]
 pub enum JointType {
@@ -26,7 +26,7 @@ pub enum JointMode {
 pub struct Joint{
     joint_type: JointType,
     mode: JointMode,
-
+    dof: u32,
     // joint displacement
     // position: Array1<f64>
     position: na::DVector<f64>
@@ -37,6 +37,7 @@ impl Default for Joint {
         Self{
             joint_type: JointType::Revolute,
             mode: JointMode::Active,
+            dof: 1,
             position : na::DVector::from_element(1, 0.)
         }
     }

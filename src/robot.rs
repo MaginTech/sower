@@ -8,6 +8,7 @@ use crate::link::*;
 pub struct Robot{
     name: String,
     id: u32,
+    dof : u32,
 
     // link
     root : Option<Box<Link>>,
@@ -24,7 +25,8 @@ impl Default for Robot {
         Self{
             name: Default::default(),
             id: Default::default(),
-            root: Default::default(),
+            dof: 1,
+            root: Default::default(), 
             gen_coord: na::DVector::from_element(1, 0.),
             gen_veloc: na::DVector::from_element(1, 0.),
             gen_accel: na::DVector::from_element(1, 0.),
