@@ -2,7 +2,7 @@ extern crate nalgebra as na;
 
 #[allow(dead_code)]
 pub fn rot_mat(axis : na::Vector3<f64>, angle : f64 ) -> na::Matrix3<f64> {
-    let n = skew_symmetric(axis);
+    let n = vec_to_skew_symmetric_mat(axis);
     let rot = na::Matrix3::<f64>::identity() 
             + n * angle.sin()
             + n * n * (1. - angle.sin());
@@ -25,7 +25,7 @@ fn test_rot_mat(){
 
 
 #[allow(dead_code)]
-pub fn skew_symmetric(vec : na::Vector3<f64>) -> na::Matrix3<f64> {
+pub fn vec_to_skew_symmetric_mat(vec : na::Vector3<f64>) -> na::Matrix3<f64> {
     let mat =
         na::Matrix3::new
             (0., -vec[2], vec[1],
@@ -43,5 +43,5 @@ fn test_skew_symmetric(){
          0.4, 0., -2.5,
          -3.1, 2.5, 0.);
 
-    assert_eq!(mat, skew_symmetric(vec));
+    assert_eq!(mat, vec_to_skew_symmetric_mat(vec));
 }
