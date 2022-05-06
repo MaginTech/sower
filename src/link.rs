@@ -185,11 +185,14 @@ fn test_update_link_frame() {
         name : "0".to_string(),
         id : 1,
         joint : joint,
+        position: na::Vector3::new(0., 1., 0.),
         parent : Some(Box::new(parent)), 
         ..Default::default()
     };
 
-    if let Some(p) = link.parent { 
-        assert_eq!(na::Vector3::new(0., 1., 0.), p.position());
-    }
+    // if let Some(p) = link.parent { 
+    //     assert_eq!(na::Vector3::new(0., 1., 0.), p.position());
+    // }
+
+    assert_eq!(na::Vector3::new(0., 1., 0.), link.position);
 }

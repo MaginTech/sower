@@ -7,12 +7,12 @@ use ndarray_linalg::Solve;
 extern crate nalgebra as na;
 
 use std::time::Instant;
-mod base;
+// mod base;
 mod math;
 // mod link;
 
 fn main() {
-    base::write();
+    // base::write();
 
     const N:u32 = 1_000;
 
