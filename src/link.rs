@@ -170,7 +170,7 @@ fn test_link_position(){
 #[test]
 fn test_update_link_frame() {
     let parent = Link { 
-        name : "1".to_string(),
+        name : "0".to_string(),
         id : 0,
         position: na::Vector3::new(0., 1., 0.),
         ..Default::default() 
@@ -182,7 +182,7 @@ fn test_update_link_frame() {
     };
 
     let mut link = Link {
-        name : "0".to_string(),
+        name : "1".to_string(),
         id : 1,
         joint : joint,
         position: na::Vector3::new(0., 1., 0.),
@@ -194,5 +194,5 @@ fn test_update_link_frame() {
     //     assert_eq!(na::Vector3::new(0., 1., 0.), p.position());
     // }
 
-    assert_eq!(na::Vector3::new(0., 1., 0.), link.position);
+    assert_eq!(na::Vector3::new(0., 0., 0.), link.position);
 }
