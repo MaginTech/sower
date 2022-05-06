@@ -189,5 +189,7 @@ fn test_update_link_frame() {
         ..Default::default()
     };
 
-    // assert_eq!(array![0., 1., 0.], Rc::strong_count(&link.child.position));
+    if let Some(p) = link.parent { 
+        assert_eq!(na::Vector3::new(0., 1., 0.), p.position());
+    }
 }
