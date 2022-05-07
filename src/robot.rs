@@ -32,10 +32,21 @@ impl Default for Robot {
             id: Default::default(),
             dof: 1,
             root: Default::default(), 
+            mass: 1.0,
+            inertia: na::DMatrix::from_element(1, 1, 0.),
+            bias: na::DVector::from_element(1, 0.),
             gen_coord: na::DVector::from_element(1, 0.),
             gen_veloc: na::DVector::from_element(1, 0.),
             gen_accel: na::DVector::from_element(1, 0.),
             gen_force: na::DVector::from_element(1, 0.),
+        }
+    }
+}
+
+impl Robot{
+    pub fn update_frame(&mut self){
+        if let Some(r) =  &mut self.root { 
+            r.update_link_frame();
         }
     }
 }

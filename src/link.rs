@@ -84,7 +84,7 @@ pub struct Link{
 
     parent: Option<Box<Link>>,
     child: Option<Box<Link>>,
-    brother: Option<Box<Link>>,
+    sibling: Option<Box<Link>>,
     
     // position from root link
     // position: Array1<f64>,
@@ -114,7 +114,7 @@ impl Default for Link {
             joint: Default::default(),
             parent: None,
             child: None,
-            brother: None,
+            sibling: None,
             position: na::Vector3::new(0., 0., 0.),
             rotation: na::Matrix3::new
                 (1., 0., 0.,
@@ -141,9 +141,8 @@ impl Link{
         self.rotation
     }
 
-    pub fn update_link_framemut(&mut self){
-        let parent = &self.parent;
-         if let Some(p) = parent { 
+    pub fn update_link_frame(&mut self){
+        if let Some(p) =  &self.parent { 
             match self.joint_type(){
                 JointType::Fix => 
                 {
@@ -164,6 +163,14 @@ impl Link{
                     println!("to be implement");
                 },
             }
+        }
+
+        if let Some(c) =  &mut self.child { 
+            c.update_link_frame();
+        }
+
+        if let Some(s) =  &mut self.sibling { 
+            s.update_link_frame();
         }
     }
 }
@@ -206,7 +213,7 @@ fn test_update_link_frame() {
         ..Default::default()
     };
 
-    link.update_link_framemut();
+    link.update_link_frame();
 
     assert_eq!(na::Vector3::new(1., 1., 2.5), link.position);
 
