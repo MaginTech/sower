@@ -8,10 +8,15 @@ use crate::link::*;
 pub struct Robot{
     name: String,
     id: u32,
-    dof : u32,
+    dof: u32,
 
     // link
     root : Option<Box<Link>>,
+
+    mass: f64,
+
+    inertia: na::DMatrix<f64>,
+    bias: na::DVector<f64>,
 
     // general coordinate
     gen_coord: na::DVector<f64>,
