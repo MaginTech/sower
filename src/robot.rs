@@ -23,6 +23,9 @@ pub struct Robot{
     gen_veloc: na::DVector<f64>,
     gen_accel: na::DVector<f64>,
     gen_force: na::DVector<f64>,
+
+    // center of gravity
+    cog: na::Vector3<f64>,
 }
 
 impl Default for Robot {
@@ -39,6 +42,7 @@ impl Default for Robot {
             gen_veloc: na::DVector::from_element(1, 0.),
             gen_accel: na::DVector::from_element(1, 0.),
             gen_force: na::DVector::from_element(1, 0.),
+            cog: na::Vector3::new(0., 0., 0.),
         }
     }
 }

@@ -71,6 +71,8 @@ pub struct Link{
     name: String,
     id: u32,
     link_type: LinkType,
+
+    mass: f64,
     
     // arm vector of link
     // arm_vec: Array1<f64>,
@@ -98,6 +100,9 @@ pub struct Link{
     // twist_vel: Array1<f64>,
     // // twist accelaration from root link
     // twist_acc: Array1<f64>,
+
+    // center of gravity
+    cog: na::Vector3<f64>,
 }
 
 impl Default for Link {
@@ -106,6 +111,7 @@ impl Default for Link {
             name: Default::default(),
             id: Default::default(),
             link_type: LinkType::Rigid,
+            mass: 0.,
             arm_vec: na::Vector3::new(0., 0., 0.),
             arm_rot: na::Matrix3::new
                 (1., 0., 0.,
@@ -120,6 +126,7 @@ impl Default for Link {
                 (1., 0., 0.,
                  0., 1., 0.,
                  0., 0., 1.),
+            cog: na::Vector3::new(0., 0., 0.),
         }
     }
 }
