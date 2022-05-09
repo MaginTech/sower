@@ -180,6 +180,37 @@ impl Link{
             s.update_link_frame();
         }
     }
+
+    pub fn update_velocity(&mut self){
+        if let Some(p) =  &self.parent { 
+            match self.joint_type(){
+                JointType::Fix => 
+                {
+                    println!("to be implement");
+                },
+                JointType::Free =>
+                {
+                    println!("to be implement");
+                },
+                JointType::Revolute => 
+                {
+                    println!("to be implement");
+                },
+                JointType::Prismatic => 
+                {
+                    println!("to be implement");
+                },
+            }
+        }
+
+        if let Some(c) =  &mut self.child { 
+            c.update_velocity();
+        }
+
+        if let Some(s) =  &mut self.sibling { 
+            s.update_velocity();
+        }
+    }
 }
 
 #[test]
@@ -230,4 +261,9 @@ fn test_update_link_frame() {
          0.,  0., 1.);
     let abs_difference = (mat - link.rotation).abs();
     assert!(abs_difference.norm() < 1e-10);
+}
+
+#[test]
+fn test_update_velocity(){
+    link.update_velocity();
 }
