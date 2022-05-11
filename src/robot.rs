@@ -53,4 +53,10 @@ impl Robot{
             r.update_link_frame();
         }
     }
+
+    pub fn update_velocity(&mut self){
+        if let Some(r) =  &mut self.root { 
+            r.update_velocity();
+        }
+    }
 }
