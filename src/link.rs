@@ -181,7 +181,7 @@ impl Link{
         }
     }
 
-    pub fn update_velocity(&mut self){
+    pub fn update_twist_vel(&mut self){
         if let Some(p) =  &self.parent { 
             match self.joint_type(){
                 JointType::Fix => 
@@ -204,11 +204,42 @@ impl Link{
         }
 
         if let Some(c) =  &mut self.child { 
-            c.update_velocity();
+            c.update_twist_vel();
         }
 
         if let Some(s) =  &mut self.sibling { 
-            s.update_velocity();
+            s.update_twist_vel();
+        }
+    }
+
+    pub fn update_twist_acc(&mut self){
+        if let Some(p) =  &self.parent { 
+            match self.joint_type(){
+                JointType::Fix => 
+                {
+                    println!("to be implement");
+                },
+                JointType::Free =>
+                {
+                    println!("to be implement");
+                },
+                JointType::Revolute => 
+                {
+                    println!("to be implement");
+                },
+                JointType::Prismatic => 
+                {
+                    println!("to be implement");
+                },
+            }
+        }
+
+        if let Some(c) =  &mut self.child { 
+            c.update_twist_acc();
+        }
+
+        if let Some(s) =  &mut self.sibling { 
+            s.update_twist_acc();
         }
     }
 }
@@ -264,6 +295,11 @@ fn test_update_link_frame() {
 }
 
 #[test]
-fn test_update_velocity(){
-    link.update_velocity();
+fn test_update_twist_vel(){
+    link.update_twist_vel();
+}
+
+#[test]
+fn test_update_twist_acc(){
+    link.update_twist_acc();
 }

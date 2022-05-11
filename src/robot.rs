@@ -54,9 +54,15 @@ impl Robot{
         }
     }
 
-    pub fn update_velocity(&mut self){
+    pub fn update_twist_vel(&mut self){
         if let Some(r) =  &mut self.root { 
-            r.update_velocity();
+            r.update_twist_vel();
+        }
+    }
+
+    pub fn update_twist_acc(&mut self){
+        if let Some(r) =  &mut self.root { 
+            r.update_twist_acc();
         }
     }
 }
