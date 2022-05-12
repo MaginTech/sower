@@ -70,15 +70,15 @@ impl Robot{
 
     }
 
-    pub fn set_gen_veloc(&mut self, q : na::DVector<f64>){
+    pub fn set_gen_veloc(&mut self, dq : na::DVector<f64>){
 
     }
 
-    pub fn set_gen_accel(&mut self, q : na::DVector<f64>){
+    pub fn set_gen_accel(&mut self, ddq : na::DVector<f64>){
 
     }
 
-    pub fn set_gen_force(&mut self, q : na::DVector<f64>){
+    pub fn set_gen_force(&mut self, f : na::DVector<f64>){
 
     }
 }
