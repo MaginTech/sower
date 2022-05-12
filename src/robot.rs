@@ -65,4 +65,20 @@ impl Robot{
             r.update_twist_acc();
         }
     }
+
+    pub fn set_gen_coord(&mut self, q : na::DVector<f64>){
+
+    }
+
+    pub fn set_gen_veloc(&mut self, q : na::DVector<f64>){
+
+    }
+
+    pub fn set_gen_accel(&mut self, q : na::DVector<f64>){
+
+    }
+
+    pub fn set_gen_force(&mut self, q : na::DVector<f64>){
+
+    }
 }
