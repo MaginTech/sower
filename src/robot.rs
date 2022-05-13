@@ -11,7 +11,7 @@ pub struct Robot{
     dof: u32,
 
     // link
-    root : Option<Box<Link>>,
+    links : Box<[Link]>,
 
     mass: f64,
 
@@ -34,7 +34,7 @@ impl Default for Robot {
             name: Default::default(),
             id: Default::default(),
             dof: 1,
-            root: Default::default(), 
+            links : Default::default(),
             mass: 1.0,
             inertia: na::DMatrix::from_element(1, 1, 0.),
             bias: na::DVector::from_element(1, 0.),
@@ -48,37 +48,28 @@ impl Default for Robot {
 }
 
 impl Robot{
+
+    pub fn set_gen_coord(&mut self, _q : na::DVector<f64>){
+    }
+
+    pub fn set_gen_veloc(&mut self, _dq : na::DVector<f64>){
+    }
+
+    pub fn set_gen_accel(&mut self, _ddq : na::DVector<f64>){
+    }
+
+    pub fn set_gen_force(&mut self, _f : na::DVector<f64>){
+    }
+
     pub fn update_frame(&mut self){
-        if let Some(r) =  &mut self.root { 
-            r.update_link_frame();
-        }
+        self.links[0].update_link_frame();
     }
 
     pub fn update_twist_vel(&mut self){
-        if let Some(r) =  &mut self.root { 
-            r.update_twist_vel();
-        }
+        self.links[0].update_twist_vel();
     }
 
     pub fn update_twist_acc(&mut self){
-        if let Some(r) =  &mut self.root { 
-            r.update_twist_acc();
-        }
-    }
-
-    pub fn set_gen_coord(&mut self, q : na::DVector<f64>){
-
-    }
-
-    pub fn set_gen_veloc(&mut self, dq : na::DVector<f64>){
-
-    }
-
-    pub fn set_gen_accel(&mut self, ddq : na::DVector<f64>){
-
-    }
-
-    pub fn set_gen_force(&mut self, f : na::DVector<f64>){
-
+        self.links[0].update_twist_acc();
     }
 }
