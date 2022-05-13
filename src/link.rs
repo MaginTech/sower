@@ -296,10 +296,62 @@ fn test_update_link_frame() {
 
 #[test]
 fn test_update_twist_vel(){
+    let parent = Link { 
+        name : "0".to_string(),
+        id : 0,
+        arm_vec: na::Vector3::new(1., 0., 2.),
+        arm_rot: na::Matrix3::new
+        (2_f64.sqrt()/2., -2_f64.sqrt()/2., 0.,
+         2_f64.sqrt()/2.,  2_f64.sqrt()/2., 0.,
+         0., 0., 1.),
+        position: na::Vector3::new(0., 1., 0.5),
+        ..Default::default() 
+    };
+
+    let mut joint = Joint {
+        position : na::DVector::from_element(1, std::f64::consts::PI / 4.),
+        ..Default::default()
+    };
+
+    let mut link = Link {
+        name : "1".to_string(),
+        id : 1,
+        joint : joint,
+        position: na::Vector3::new(0., 1., 0.),
+        parent : Some(Box::new(parent)), 
+        ..Default::default()
+    };
+
     link.update_twist_vel();
 }
 
 #[test]
 fn test_update_twist_acc(){
+    let parent = Link { 
+        name : "0".to_string(),
+        id : 0,
+        arm_vec: na::Vector3::new(1., 0., 2.),
+        arm_rot: na::Matrix3::new
+        (2_f64.sqrt()/2., -2_f64.sqrt()/2., 0.,
+         2_f64.sqrt()/2.,  2_f64.sqrt()/2., 0.,
+         0., 0., 1.),
+        position: na::Vector3::new(0., 1., 0.5),
+        ..Default::default() 
+    };
+
+    let mut joint = Joint {
+        position : na::DVector::from_element(1, std::f64::consts::PI / 4.),
+        ..Default::default()
+    };
+
+    let mut link = Link {
+        name : "1".to_string(),
+        id : 1,
+        joint : joint,
+        position: na::Vector3::new(0., 1., 0.),
+        parent : Some(Box::new(parent)), 
+        ..Default::default()
+    };
+
     link.update_twist_acc();
 }
