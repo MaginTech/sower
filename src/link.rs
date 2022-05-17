@@ -146,6 +146,10 @@ impl Link{
         &self.joint.joint_type
     }
 
+    pub fn set_joint_position(&mut self, pos : na::DVector<f64>){
+        self.joint.position = pos;
+    }
+
     pub fn position(&self) -> na::Vector3<f64> {
         self.position
     }
