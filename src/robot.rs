@@ -9,6 +9,8 @@ pub struct Robot{
     name: String,
     id: u32,
     dof: u32,
+    link_num: u32,
+    joint_num: u32,
 
     // link
     links : Box<[Link]>,
@@ -34,6 +36,8 @@ impl Default for Robot {
             name: Default::default(),
             id: Default::default(),
             dof: 1,
+            link_num : 1,
+            joint_num : 1,
             links : Default::default(),
             mass: 1.0,
             inertia: na::DMatrix::from_element(1, 1, 0.),
