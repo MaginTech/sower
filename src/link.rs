@@ -138,6 +138,9 @@ impl Link{
     // fn mut_child(&mut self) -> Option<Box<Link>> {
     //     self.child.borrow_mut()
     // }
+    pub fn joint_dof(&self) -> usize{
+        self.joint.dof
+    }
 
     pub fn joint_type(&self) -> &JointType{
         &self.joint.joint_type
