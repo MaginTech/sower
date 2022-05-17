@@ -139,7 +139,7 @@ impl Link{
     //     self.child.borrow_mut()
     // }
 
-    fn joint_type(&self) -> &JointType{
+    pub fn joint_type(&self) -> &JointType{
         &self.joint.joint_type
     }
 
