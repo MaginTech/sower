@@ -7,10 +7,11 @@ use crate::link::*;
 #[derive(Clone, PartialEq)]
 pub struct Robot{
     name: String,
-    id: u32,
-    dof: u32,
-    link_num: u32,
-    joint_num: u32,
+    id: usize,
+    dof: usize,
+    link_num: usize,
+    joint_num: usize,
+    joint_dof: usize,
 
     // link
     links : Box<[Link]>,
@@ -38,6 +39,7 @@ impl Default for Robot {
             dof: 1,
             link_num : 1,
             joint_num : 1,
+            joint_dof : 1,
             links : Default::default(),
             mass: 1.0,
             inertia: na::DMatrix::from_element(1, 1, 0.),

@@ -26,7 +26,7 @@ pub enum JointMode {
 pub struct Joint{
     joint_type: JointType,
     mode: JointMode,
-    dof: u32,
+    dof: usize,
     // joint displacement
     // position: Array1<f64>
     axis: na::Vector3<f64>,
