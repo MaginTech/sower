@@ -54,6 +54,9 @@ impl Default for Robot {
 }
 
 impl Robot{
+    fn link(&mut self, i : usize) -> &Link{
+        &self.links[i]
+    }
 
     pub fn set_gen_coord(&mut self, _q : na::DVector<f64>){
     }
