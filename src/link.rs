@@ -195,11 +195,11 @@ impl Link{
             match self.joint_type(){
                 JointType::Fix => 
                 {
-                    println!("to be implement");
+                    println!("to be implemented");
                 },
                 JointType::Free =>
                 {
-                    println!("to be implement");
+                    println!("to be implemented");
                 },
                 JointType::Revolute => 
                 {
@@ -209,7 +209,7 @@ impl Link{
                 },
                 JointType::Prismatic => 
                 {
-                    println!("to be implement");
+                    println!("to be implemented");
                 },
             }
         }
@@ -228,19 +228,19 @@ impl Link{
             match self.joint_type(){
                 JointType::Fix => 
                 {
-                    println!("to be implement");
+                    println!("to be implemented");
                 },
                 JointType::Free =>
                 {
-                    println!("to be implement");
+                    println!("to be implemented");
                 },
                 JointType::Revolute => 
                 {
-                    println!("to be implement");
+                    println!("to be implemented");
                 },
                 JointType::Prismatic => 
                 {
-                    println!("to be implement");
+                    println!("to be implemented");
                 },
             }
         }
@@ -259,19 +259,19 @@ impl Link{
             match self.joint_type(){
                 JointType::Fix => 
                 {
-                    println!("to be implement");
+                    println!("to be implemented");
                 },
                 JointType::Free =>
                 {
-                    println!("to be implement");
+                    println!("to be implemented");
                 },
                 JointType::Revolute => 
                 {
-                    println!("to be implement");
+                    println!("to be implemented");
                 },
                 JointType::Prismatic => 
                 {
-                    println!("to be implement");
+                    println!("to be implemented");
                 },
             }
         }
@@ -310,7 +310,7 @@ fn test_update_link_frame() {
         ..Default::default() 
     };
 
-    let mut joint = Joint {
+    let joint = Joint {
         axis: na::Vector3::z(),
         pos : na::DVector::from_element(1, std::f64::consts::PI / 4.),
         ..Default::default()
@@ -351,7 +351,7 @@ fn test_update_twist_vel(){
         ..Default::default() 
     };
 
-    let mut joint = Joint {
+    let joint = Joint {
         pos : na::DVector::from_element(1, std::f64::consts::PI / 4.),
         ..Default::default()
     };
