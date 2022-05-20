@@ -30,7 +30,10 @@ pub struct Joint{
     // joint displacement
     // position: Array1<f64>
     axis: na::Vector3<f64>,
-    position: na::DVector<f64>
+    pos: na::DVector<f64>,
+    vel: na::DVector<f64>,
+    acc: na::DVector<f64>,
+    torque: na::DVector<f64>,
 }
 
 impl Default for Joint {
@@ -40,7 +43,10 @@ impl Default for Joint {
             mode: JointMode::Active,
             dof: 1,
             axis: na::Vector3::z(),
-            position : na::DVector::from_element(1, 0.)
+            pos : na::DVector::from_element(1, 0.),
+            vel :  na::DVector::from_element(1, 0.),
+            acc :  na::DVector::from_element(1, 0.),
+            torque :  na::DVector::from_element(1, 0.),
         }
     }
 }
@@ -53,10 +59,10 @@ impl Joint{
 fn test_joint_position(){
     let joint = Joint { 
         axis: na::Vector3::z(),
-        position : na::DVector::from_element(1, 1.5),
+        pos : na::DVector::from_element(1, 1.5),
         ..Default::default() };
     let ref_value = na::DVector::from_element(1, 1.5);
-    assert_eq!(ref_value, joint.position);
+    assert_eq!(ref_value, joint.pos);
 }
 
 #[derive(Clone, PartialEq)]
@@ -146,8 +152,9 @@ impl Link{
         &self.joint.joint_type
     }
 
-    pub fn set_joint_position(&mut self, pos : na::DVector<f64>){
-        self.joint.position = pos;
+    pub fn set_joint_pos(&mut self, pos : na::DVector<f64>){
+        self.joint.set_pos(pos);
+    }
     }
 
     pub fn position(&self) -> na::Vector3<f64> {
@@ -172,7 +179,7 @@ impl Link{
                 JointType::Revolute => 
                 {
                     self.position = p.position + p.arm_vec;
-                    let rot = rot_mat(self.joint.axis, self.joint.position[0]);
+                    let rot = rot_mat(self.joint.axis, self.joint.pos[0]);
                     self.rotation = rot * p.arm_rot *  p.rotation;
                 },
                 JointType::Prismatic => 
@@ -280,7 +287,7 @@ fn test_update_link_frame() {
 
     let mut joint = Joint {
         axis: na::Vector3::z(),
-        position : na::DVector::from_element(1, std::f64::consts::PI / 4.),
+        pos : na::DVector::from_element(1, std::f64::consts::PI / 4.),
         ..Default::default()
     };
 
@@ -320,7 +327,7 @@ fn test_update_twist_vel(){
     };
 
     let mut joint = Joint {
-        position : na::DVector::from_element(1, std::f64::consts::PI / 4.),
+        pos : na::DVector::from_element(1, std::f64::consts::PI / 4.),
         ..Default::default()
     };
 
@@ -350,8 +357,8 @@ fn test_update_twist_acc(){
         ..Default::default() 
     };
 
-    let mut joint = Joint {
-        position : na::DVector::from_element(1, std::f64::consts::PI / 4.),
+    let joint = Joint {
+        pos : na::DVector::from_element(1, std::f64::consts::PI / 4.),
         ..Default::default()
     };
 
