@@ -58,16 +58,68 @@ impl Robot{
         &self.links[i]
     }
 
-    pub fn set_gen_coord(&mut self, _q : na::DVector<f64>){
+    pub fn set_gen_coord(&mut self, q : na::DVector<f64>){
+        if let JointType::Free = self.links[0].joint_type(){
+
+        }
+
+        let mut indx = 0;
+        for n in 1..self.link_num {
+            let mut pos = na::DVector::from_element(self.links[n].joint_dof(), 0.);
+            for m in 0..self.links[n].joint_dof()-1 {
+                pos[m] = q[indx + m];
+            }
+            self.links[n].set_joint_pos( pos );
+            indx += self.links[n].joint_dof();
+        }
     }
 
-    pub fn set_gen_veloc(&mut self, _dq : na::DVector<f64>){
+    pub fn set_gen_veloc(&mut self, dq : na::DVector<f64>){
+        if let JointType::Free = self.links[0].joint_type(){
+            
+        }
+
+        let mut indx = 0;
+        for n in 1..self.link_num {
+            let mut vel = na::DVector::from_element(self.links[n].joint_dof(), 0.);
+            for m in 0..self.links[n].joint_dof()-1 {
+                vel[m] = dq[indx + m];
+            }
+            self.links[n].set_joint_vel( vel );
+            indx += self.links[n].joint_dof();
+        }
     }
 
-    pub fn set_gen_accel(&mut self, _ddq : na::DVector<f64>){
+    pub fn set_gen_accel(&mut self, ddq : na::DVector<f64>){
+        if let JointType::Free = self.links[0].joint_type(){
+            
+        }
+
+        let mut indx = 0;
+        for n in 1..self.link_num {
+            let mut acc = na::DVector::from_element(self.links[n].joint_dof(), 0.);
+            for m in 0..self.links[n].joint_dof()-1 {
+                acc[m] = ddq[indx + m];
+            }
+            self.links[n].set_joint_acc( acc );
+            indx += self.links[n].joint_dof();
+        }
     }
 
-    pub fn set_gen_force(&mut self, _f : na::DVector<f64>){
+    pub fn set_gen_force(&mut self, f : na::DVector<f64>){
+        if let JointType::Free = self.links[0].joint_type(){
+            
+        }
+
+        let mut indx = 0;
+        for n in 1..self.link_num {
+            let mut tau = na::DVector::from_element(self.links[n].joint_dof(), 0.);
+            for m in 0..self.links[n].joint_dof()-1 {
+                tau[m] = f[indx + m];
+            }
+            self.links[n].set_joint_torque( tau );
+            indx += self.links[n].joint_dof();
+        }
     }
 
     pub fn update_frame(&mut self){
