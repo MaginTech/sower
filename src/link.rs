@@ -171,11 +171,11 @@ impl Link{
     }
 
     pub fn set_joint_vel(&mut self, pos : na::DVector<f64>){
-        self.joint.set_pos(pos);
+        self.joint.set_vel(pos);
     }
 
     pub fn set_joint_acc(&mut self, pos : na::DVector<f64>){
-        self.joint.set_pos(pos);
+        self.joint.set_acc(pos);
     }
 
     pub fn set_joint_torque(&mut self, torque : na::DVector<f64>){
@@ -203,13 +203,15 @@ impl Link{
                 },
                 JointType::Revolute => 
                 {
-                    self.position = p.position + p.arm_vec;
                     let rot = rot_mat(self.joint.axis, self.joint.pos[0]);
-                    self.rotation = rot * p.arm_rot *  p.rotation;
+                    self.rotation = p.rotation * p.arm_rot * rot; 
+                    self.position = p.position + p.rotation * p.arm_vec;
                 },
                 JointType::Prismatic => 
                 {
-                    println!("to be implemented");
+                    self.rotation = p.rotation * p.arm_rot; 
+                    let pos =  self.rotation * self.joint.pos[0] * self.joint.axis;
+                    self.position = p.position + p.rotation * p.arm_vec + pos;
                 },
             }
         }
