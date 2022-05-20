@@ -52,7 +52,21 @@ impl Default for Joint {
 }
 
 impl Joint{
+    pub fn set_pos(&mut self, pos : na::DVector<f64>){
+        self.pos = pos;
+    }
 
+    pub fn set_vel(&mut self, vel : na::DVector<f64>){
+        self.vel = vel;
+    }
+
+    pub fn set_acc(&mut self, acc : na::DVector<f64>){
+        self.acc = acc;
+    }
+
+    pub fn set_torque(&mut self, torque : na::DVector<f64>){
+        self.torque = torque;
+    }
 }
 
 #[test]
@@ -155,6 +169,17 @@ impl Link{
     pub fn set_joint_pos(&mut self, pos : na::DVector<f64>){
         self.joint.set_pos(pos);
     }
+
+    pub fn set_joint_vel(&mut self, pos : na::DVector<f64>){
+        self.joint.set_pos(pos);
+    }
+
+    pub fn set_joint_acc(&mut self, pos : na::DVector<f64>){
+        self.joint.set_pos(pos);
+    }
+
+    pub fn set_joint_torque(&mut self, torque : na::DVector<f64>){
+        self.joint.set_torque(torque);
     }
 
     pub fn position(&self) -> na::Vector3<f64> {
