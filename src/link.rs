@@ -118,8 +118,12 @@ pub struct Link{
 
     // // twist velocity from root link
     // twist_vel: Array1<f64>,
+    twist_lin_vel: na::Vector3<f64>,
+    twist_ang_vel: na::Vector3<f64>,
     // // twist accelaration from root link
     // twist_acc: Array1<f64>,
+    twist_lin_acc: na::Vector3<f64>,
+    twist_ang_acc: na::Vector3<f64>,
 
     // center of gravity
     cog: na::Vector3<f64>,
@@ -146,6 +150,10 @@ impl Default for Link {
                 (1., 0., 0.,
                  0., 1., 0.,
                  0., 0., 1.),
+            twist_lin_vel: na::Vector3::new(0., 0., 0.),
+            twist_ang_vel: na::Vector3::new(0., 0., 0.),
+            twist_lin_acc: na::Vector3::new(0., 0., 0.),
+            twist_ang_acc: na::Vector3::new(0., 0., 0.),
             cog: na::Vector3::new(0., 0., 0.),
         }
     }
