@@ -243,11 +243,16 @@ impl Link{
                 },
                 JointType::Revolute => 
                 {
-                    println!("to be implemented");
+                    let rot = p.arm_rot * rot_mat(na::Vector3::z(), self.joint.pos[0]);
+                    self.twist_ang_vel = rot.transpose() * p.twist_ang_vel + na::Vector3::z() * self.joint.vel[0]; 
+                    self.twist_lin_vel = rot.transpose() * ( p.twist_lin_vel - vec_to_skew_sym_mat(p.arm_vec) * p.twist_ang_vel);
                 },
                 JointType::Prismatic => 
                 {
-                    println!("to be implemented");
+                    self.twist_ang_vel = p.arm_rot.transpose() * p.twist_ang_vel; 
+                    self.twist_lin_vel = p.arm_rot.transpose() * 
+                                        ( p.twist_lin_vel - vec_to_skew_sym_mat(p.arm_vec) * p.twist_ang_vel)
+                                        + na::Vector3::z() * self.joint.vel[0];
                 },
             }
         }
@@ -274,11 +279,26 @@ impl Link{
                 },
                 JointType::Revolute => 
                 {
-                    println!("to be implemented");
+                    let rot = p.arm_rot * rot_mat(na::Vector3::z(), self.joint.pos[0]);
+                    self.twist_ang_acc = rot.transpose() * p.twist_ang_acc 
+                                       + vec_to_skew_sym_mat(p.twist_ang_vel) * na::Vector3::z() * self.joint.vel[0]
+                                       + na::Vector3::z() * self.joint.acc[0]; 
+                    let omega = vec_to_skew_sym_mat(p.arm_vec);
+                    self.twist_lin_acc = rot.transpose() * 
+                                       ( p.twist_lin_acc 
+                                       - vec_to_skew_sym_mat(p.arm_vec) * p.twist_ang_acc
+                                       + omega * omega * p.arm_vec);
                 },
                 JointType::Prismatic => 
                 {
-                    println!("to be implemented");
+                    self.twist_ang_acc = p.arm_rot.transpose() * p.twist_ang_acc; 
+                    let omega = vec_to_skew_sym_mat(p.arm_vec);
+                    self.twist_lin_acc = p.arm_rot.transpose() * 
+                                       ( p.twist_lin_acc 
+                                       - vec_to_skew_sym_mat(p.arm_vec) * p.twist_ang_acc
+                                       + omega * omega * p.arm_vec
+                                       + 2. * omega * na::Vector3::z() * self.joint.vel[0]
+                                       + na::Vector3::z() * self.joint.acc[0]);
                 },
             }
         }
