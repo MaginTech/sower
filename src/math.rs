@@ -5,7 +5,7 @@ pub fn rot_mat(axis : na::Vector3<f64>, angle : f64 ) -> na::Matrix3<f64> {
     let n = vec_to_skew_sym_mat(axis);
     let rot = na::Matrix3::<f64>::identity() 
             + n * angle.sin()
-            + n * n * (1. - angle.sin());
+            + n * n * (1. - angle.cos());
     rot
 }
 
