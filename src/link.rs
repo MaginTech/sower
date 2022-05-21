@@ -29,7 +29,6 @@ pub struct Joint{
     dof: usize,
     // joint displacement
     // position: Array1<f64>
-    axis: na::Vector3<f64>,
     pos: na::DVector<f64>,
     vel: na::DVector<f64>,
     acc: na::DVector<f64>,
@@ -42,7 +41,6 @@ impl Default for Joint {
             joint_type: JointType::Revolute,
             mode: JointMode::Active,
             dof: 1,
-            axis: na::Vector3::z(),
             pos : na::DVector::from_element(1, 0.),
             vel :  na::DVector::from_element(1, 0.),
             acc :  na::DVector::from_element(1, 0.),
@@ -72,7 +70,6 @@ impl Joint{
 #[test]
 fn test_joint_position(){
     let joint = Joint { 
-        axis: na::Vector3::z(),
         pos : na::DVector::from_element(1, 1.5),
         ..Default::default() };
     let ref_value = na::DVector::from_element(1, 1.5);
@@ -203,14 +200,14 @@ impl Link{
                 },
                 JointType::Revolute => 
                 {
-                    let rot = rot_mat(self.joint.axis, self.joint.pos[0]);
+                    let rot = rot_mat(na::Vector3::z(), self.joint.pos[0]);
                     self.rotation = p.rotation * p.arm_rot * rot; 
                     self.position = p.position + p.rotation * p.arm_vec;
                 },
                 JointType::Prismatic => 
                 {
                     self.rotation = p.rotation * p.arm_rot; 
-                    let pos =  self.rotation * self.joint.pos[0] * self.joint.axis;
+                    let pos =  self.rotation * self.joint.pos[0] * na::Vector3::z();
                     self.position = p.position + p.rotation * p.arm_vec + pos;
                 },
             }
@@ -313,7 +310,6 @@ fn test_update_link_frame() {
     };
 
     let joint = Joint {
-        axis: na::Vector3::z(),
         pos : na::DVector::from_element(1, std::f64::consts::PI / 4.),
         ..Default::default()
     };
