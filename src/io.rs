@@ -1,6 +1,8 @@
+use std::path::Path;
+
 #[allow(dead_code)]
-fn file_exist(_file: &str) -> bool {
-    false
+fn file_exist(file: &str) -> bool {
+    Path::new(file).exists()
 }
 
 #[test]
