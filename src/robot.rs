@@ -60,7 +60,7 @@ impl Robot{
 
     pub fn set_gen_coord(&mut self, q : na::DVector<f64>){
         if let JointType::Free = self.links[0].joint_type(){
-
+            println!("to be implemented");
         }
 
         let mut indx = 0;
@@ -76,7 +76,7 @@ impl Robot{
 
     pub fn set_gen_veloc(&mut self, dq : na::DVector<f64>){
         if let JointType::Free = self.links[0].joint_type(){
-            
+            println!("to be implemented");
         }
 
         let mut indx = 0;
@@ -92,7 +92,7 @@ impl Robot{
 
     pub fn set_gen_accel(&mut self, ddq : na::DVector<f64>){
         if let JointType::Free = self.links[0].joint_type(){
-            
+            println!("to be implemented");
         }
 
         let mut indx = 0;
@@ -108,7 +108,7 @@ impl Robot{
 
     pub fn set_gen_force(&mut self, f : na::DVector<f64>){
         if let JointType::Free = self.links[0].joint_type(){
-            
+            println!("to be implemented");
         }
 
         let mut indx = 0;
