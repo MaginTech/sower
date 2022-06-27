@@ -50,4 +50,11 @@ fn main() {
 
     let x = (m + u) * v;
     println!("x={}",x);
+
+    let urdf_robo = urdf_rs::read_file("sample.urdf").unwrap();
+    let links = urdf_robo.links;
+    println!("{:?}", links[0].visual[0].origin.xyz);
+    println!("{:?}",links[1].name);
+    let joints = urdf_robo.joints;
+    println!("{:?}", joints[0].origin.xyz);
 }
